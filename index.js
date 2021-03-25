@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         True Groups Hacks
 // @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  Add the basic "Mark as read functionality"
-// @author       You
+// @version      1.0
+// @description  Make True Groups great again
+// @author       Carl-Erik Kopseng <carlerik@gmail.com>
 // @match        https://www.truegroups.com/Messages/Index
 // @grant        none
 // ==/UserScript==
