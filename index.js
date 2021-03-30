@@ -8,12 +8,13 @@
 // @grant        none
 // ==/UserScript==
 
-const userId = null;
+let userId = null;
 
 function init() {
   const elem = document.getElementById("loggedinuserid");
-  this.userId = elem.value;
+  userId = elem.value;
 
+    debugger;
   addMarkElementAsReadToUI();
 }
 
@@ -34,7 +35,7 @@ function clickMoreButtonAwaitAndDo(action) {
 }
 
 async function markAllAsRead() {
-  if (!this.userId) {
+  if (!userId) {
     init();
   }
 
@@ -53,7 +54,7 @@ async function markAllAsRead() {
   for (const node of nodes) {
     const messageId = node.id.replace(prefix, "");
     const p = fetch(
-      `https://www.truegroups.com/Message/GetMessageThread?userId=${this.userId}&parentMessageId=${messageId}&eventId=0&groupId=0&grpEvtName=&messagePermission=0`
+      `https://www.truegroups.com/Message/GetMessageThread?userId=${userId}&parentMessageId=${messageId}&eventId=0&groupId=0&grpEvtName=&messagePermission=0`
     );
     promises.push(p);
 
@@ -71,6 +72,7 @@ function expandMessageList() {
 }
 
 function addMarkElementAsReadToUI() {
+  const isDesktop = window.matchMedia('@media (min-width: 720px)').matches;
   const messages = document.getElementById("div_MessageNotificationSection");
 
   const button = document.createElement("button");
@@ -87,7 +89,11 @@ top: 3px;
 `;
 
   const text = document.createElement("span");
-  text.append("Merk som lest");
+
+  if(isDesktop) {
+    text.append("Merk som lest");
+  }
+
   text.style = `
 display: inline-block;
 color: white;
@@ -95,7 +101,7 @@ font-weight: 700;
 `;
 
   const link = document.createElement("a");
-  link.style = "padding: 15px 8px;";
+  if(isDesktop) link.style = "padding: 15px 8px;";
   link.append(button);
   link.append(text);
 
@@ -106,9 +112,17 @@ font-weight: 700;
   liElem.onclick = markAllAsRead;
 }
 
-// expose on window for experimentation
-window.TGHacks = {
-  markAllAsRead,
-  expandMessageList,
-  addMarkElementAsReadToUI
-};
+// Running inside of TamperMonkey or GreaseMonkey? Auto-start
+const hasGreaseMonkeyAPI = typeof GM_info !== "undefined";
+if(hasGreaseMonkeyAPI){
+    init();
+
+    // expose on window for experimentation
+    window.TGHacks = {
+        markAllAsRead,
+        expandMessageList,
+        addMarkElementAsReadToUI,
+        init
+    };
+
+}
