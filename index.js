@@ -72,7 +72,7 @@ function expandMessageList() {
 }
 
 function addMarkElementAsReadToUI() {
-  const isDesktop = window.matchMedia('@media (min-width: 720px)').matches;
+  const isDesktop = window.matchMedia('(min-width: 720px)').matches;
   const messages = document.getElementById("div_MessageNotificationSection");
 
   const button = document.createElement("button");
