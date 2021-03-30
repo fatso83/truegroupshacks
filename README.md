@@ -5,6 +5,8 @@ True Groups Hacks
 ## Hva er dette?
 Dette er et lite "user script" som fungerer med nettlesertillegget <a href="https://www.tampermonkey.net">TamperMonkey</a>, en utvidelse til Chrome, Edge og Firefox. Det det gjør er å legge til litt funksjonalitet jeg mener burde eksistere når man bruker siden. Hittil er alt det gjør å legge til en liten knapp "Merk alt som lest" som merker alle meldingene som lest.
 
+![Skjermbilde 2021-03-30 135202](https://user-images.githubusercontent.com/618076/112984515-4629d780-915f-11eb-9430-6ca2cac18890.png)
+
 ## Hvordan installerer man det?
 - Installer Greasemonkey eller TamperMonkey i nettleseren din
 - Åpne skriptfila [index.js](./index.js)
