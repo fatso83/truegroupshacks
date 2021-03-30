@@ -115,6 +115,7 @@ font-weight: 700;
 // Running inside of TamperMonkey or GreaseMonkey? Auto-start
 const hasGreaseMonkeyAPI = typeof GM_info !== "undefined";
 if(hasGreaseMonkeyAPI){
+    console.info(GM_info.script.description);
     init();
 
     // expose on window for experimentation
