@@ -17,4 +17,4 @@ Dette er et lite "user script" som fungerer med nettlesertillegget <a href="http
 ## Bakgrunn
 True Groups er et verktøy brukt i Osloskolen for å kommunisere med foreldrene til barn i barnehage og skole.
 
-Dessverre er teknologien preget av annenhåndsarbeid; bugs, dårlige løsninger, utrolig dårlig ytelse og manglende funksjonalitet. Antagelig grunnet at gründerne satt arbeidet ut til India. Appen fungerer nesten ikke i det hele tatt og nettsiden er faktisk bedre på alt. Enda så treg den er. Men en nettside kan man i det minste modifisere fra brukersiden, derav dette skriptet som kan patche siden og legge til de tingene jeg tenker mangler.
+_Dessverre er teknologien preget av annenhåndsarbeid_; bugs, dårlige løsninger, dårlig ytelse og manglende funksjonalitet. Antagelig grunnet at gründerne satt arbeidet ut til India. Appen fungerer nesten ikke i det hele tatt og nettsiden er faktisk bedre på alt. Enda så treg den er. Men en nettside kan man i det minste modifisere fra brukersiden, derav dette skriptet som kan patche siden og legge til de tingene jeg tenker mangler.
