@@ -2,19 +2,19 @@
 // @name         True Groups Hacks
 // @namespace    http://tampermonkey.net/
 // @version      1.0
-// @description  Make True Groups great again
+// @description  Make True Groups great again. Latest version at https://github.com/fatso83/truegroupshacks
 // @author       Carl-Erik Kopseng <carlerik@gmail.com>
 // @match        https://www.truegroups.com/Messages/Index
 // @grant        none
 // ==/UserScript==
 
+const hasGreaseMonkeyAPI = typeof GM_info !== "undefined";
 let userId = null;
 
 function init() {
   const elem = document.getElementById("loggedinuserid");
   userId = elem.value;
 
-    debugger;
   addMarkElementAsReadToUI();
 }
 
@@ -28,9 +28,10 @@ function clickMoreButtonAwaitAndDo(action) {
   if (moreButton) {
     console.log("Fetching more messages ...");
     moreButton.children[0].click();
-    setTimeout(action, 5000); // could of course had a MutationObserver or something, but this is a one-off scrip ...
+    setTimeout(action, 5000); // could of course had a MutationObserver or something, but this is a one-off script ...
   } else {
     console.log("No 'more' button found. Nothing more to do!");
+    alert("Alle meldinger lest");
   }
 }
 
@@ -41,6 +42,7 @@ async function markAllAsRead() {
 
   if (allMessagesRead()) {
     console.log("No unread messages. Aborting execution.");
+    alert("Ingen uleste meldinger");
     return;
   }
 
@@ -113,7 +115,6 @@ font-weight: 700;
 }
 
 // Running inside of TamperMonkey or GreaseMonkey? Auto-start
-const hasGreaseMonkeyAPI = typeof GM_info !== "undefined";
 if(hasGreaseMonkeyAPI){
     console.info(GM_info.script.description);
     init();
