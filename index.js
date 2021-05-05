@@ -9,6 +9,8 @@
 // ==/UserScript==
 
 const hasGreaseMonkeyAPI = typeof GM_info !== "undefined";
+const buttonId = "start-mark-read-btn";
+const pulseSpeed = 500;
 let userId = null;
 
 function init() {
@@ -35,6 +37,35 @@ function clickMoreButtonAwaitAndDo(action) {
   }
 }
 
+let currentColor;
+function changeColor(){
+    const btn = getButton();
+    currentColor = currentColor === 'yellow'? 'red' : 'yellow';
+
+    btn.style.backgroundColor = currentColor;
+}
+
+let pulseProcess;
+function startPulse(){
+
+  changeColor();
+  pulseProcess = setInterval(changeColor, pulseSpeed);
+};
+
+function stopPulse(){
+    getButton().style.backgroundColor = 'red';
+    clearInterval(pulseProcess);
+}
+
+function getButton(){
+  const btn = document.getElementById(buttonId);
+  if(!btn) {
+      throw new Error("No button found!");
+      return;
+  }
+  return btn;
+}
+
 async function markAllAsRead() {
   if (!userId) {
     init();
@@ -43,6 +74,7 @@ async function markAllAsRead() {
   if (allMessagesRead()) {
     console.log("No unread messages. Aborting execution.");
     alert("Ingen uleste meldinger");
+    stopPulse();
     return;
   }
 
@@ -78,16 +110,18 @@ function addMarkElementAsReadToUI() {
   const messages = document.getElementById("div_MessageNotificationSection");
 
   const button = document.createElement("button");
+  button.id=buttonId;
   button.style = `
+display: inline-block;
+position: relative;
+top: 3px;
+height: 16px;
+width: 16px;
+margin-right: 3px;
+transition-duration:${pulseSpeed/1000}s;
 background: red;
 border-radius: 8px;
 border: 0;
-height: 16px;
-width: 16px;
-display: inline-block;
-margin-right: 3px;
-position: relative;
-top: 3px;
 `;
 
   const text = document.createElement("span");
@@ -124,7 +158,8 @@ if(hasGreaseMonkeyAPI){
         markAllAsRead,
         expandMessageList,
         addMarkElementAsReadToUI,
+        startPulse,
+        stopPulse,
         init
     };
-
 }
