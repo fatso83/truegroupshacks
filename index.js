@@ -33,6 +33,7 @@ function clickMoreButtonAwaitAndDo(action) {
     setTimeout(action, 5000); // could of course had a MutationObserver or something, but this is a one-off script ...
   } else {
     console.log("No 'more' button found. Nothing more to do!");
+    stopPulse();
     alert("Alle meldinger lest");
   }
 }
@@ -74,10 +75,10 @@ async function markAllAsRead() {
   if (allMessagesRead()) {
     console.log("No unread messages. Aborting execution.");
     alert("Ingen uleste meldinger");
-    stopPulse();
     return;
   }
 
+  startPulse();
   const prefix = "liParentMessage";
   const unfilteredNodes = document.querySelectorAll(`[id^=${prefix}]`);
   const nodes = [].filter.call(unfilteredNodes, (n) =>
