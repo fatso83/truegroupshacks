@@ -43,7 +43,6 @@ async function clickMoreButtonAwaitAndDo(action) {
   const moreButton = document.getElementById("seeMoreMessages");
   const unread = await getNumberOfUnreadMessages();
 
-    debugger;
   if (unread > 0) {
     console.log("Fetching more messages ...");
     moreButton.children[0].click();
