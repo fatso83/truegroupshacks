@@ -20,19 +20,36 @@ function init() {
   addMarkElementAsReadToUI();
 }
 
-function allMessagesRead() {
-  const elem = document.getElementById("ButtonMsgNotification");
-  return elem.classList.contains("msg-count-zero");
+function getUnreadMessagesElem(){
+  return document.getElementById("ButtonMsgNotification");
 }
 
-function clickMoreButtonAwaitAndDo(action) {
+function getNumberOfUnreadMessagesFromDOM(){
+  const elem = getUnreadMessagesElem();
+  return parseInt(elem.innerText, 10);
+}
+
+async function getNumberOfUnreadMessages(){
+  return (await fetch("https://www.truegroups.com/Message/GetMessageMenuNotification", {
+    "credentials": "include"
+  }).then(res => res.json())).Count
+}
+
+function allMessagesReadAtStartup() {
+  return getUnreadMessagesElem().classList.contains("msg-count-zero");
+}
+
+async function clickMoreButtonAwaitAndDo(action) {
   const moreButton = document.getElementById("seeMoreMessages");
-  if (moreButton) {
+  const unread = await getNumberOfUnreadMessages();
+
+    debugger;
+  if (unread > 0) {
     console.log("Fetching more messages ...");
     moreButton.children[0].click();
     setTimeout(action, 5000); // could of course had a MutationObserver or something, but this is a one-off script ...
   } else {
-    console.log("No 'more' button found. Nothing more to do!");
+    console.log("No unread messages. Nothing more to do!");
     stopPulse();
     alert("Alle meldinger lest");
   }
@@ -72,7 +89,7 @@ async function markAllAsRead() {
     init();
   }
 
-  if (allMessagesRead()) {
+  if (allMessagesReadAtStartup()) {
     console.log("No unread messages. Aborting execution.");
     alert("Ingen uleste meldinger");
     return;
