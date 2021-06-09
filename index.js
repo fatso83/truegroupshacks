@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         True Groups Hacks
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.0.1
 // @description  Make True Groups great again. Latest version at https://github.com/fatso83/truegroupshacks
 // @author       Carl-Erik Kopseng <carlerik@gmail.com>
 // @match        https://www.truegroups.com/Messages/Index
@@ -50,7 +50,8 @@ async function clickMoreButtonAwaitAndDo(action) {
   } else {
     console.log("No unread messages. Nothing more to do!");
     stopPulse();
-    alert("Alle meldinger lest");
+    alert("Alle meldinger lest; laster siden på nytt");
+    location.reload()
   }
 }
 
@@ -62,8 +63,9 @@ function changeColor(){
     btn.style.backgroundColor = currentColor;
 }
 
-let pulseProcess;
+let pulseProcess = null;;
 function startPulse(){
+  if( pulseProcess ) return;
 
   changeColor();
   pulseProcess = setInterval(changeColor, pulseSpeed);
@@ -72,6 +74,7 @@ function startPulse(){
 function stopPulse(){
     getButton().style.backgroundColor = 'red';
     clearInterval(pulseProcess);
+    pulseProcess = null;
 }
 
 function getButton(){
